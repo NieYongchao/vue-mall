@@ -8,6 +8,7 @@ import Cart from './components/tabbar/Cart.vue'
 import Myself from './components/tabbar/Myself.vue'
 import NewsList from './components/news/NewsList.vue'
 import NewsInfo from './components/news/NewsInfo.vue'
+import Photos from './components/photos/Photos.vue'
 
 //创建路由对象
 var router = new VueRouter({
@@ -18,7 +19,8 @@ var router = new VueRouter({
     { path: '/cart', component: Cart },
     { path: '/myself', component: Myself },
     { path: '/home/newslist', component: NewsList },
-    { path: '/home/newsinfo/:id', component: NewsInfo }
+    { path: '/home/newsinfo/:id', component: NewsInfo },
+    { path: '/home/photos', component: Photos }
   ],
   linkActiveClass: 'mui-active' //用mui-active覆盖掉默认的link-router-active
 })

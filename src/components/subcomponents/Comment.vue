@@ -1,17 +1,21 @@
 <template>
   <div class="comment-container">
     <h3>评论区</h3>
-    <hr>
-    <textarea placeholder="请输入要BB的内容:" maxlength="120"></textarea>
-    <mt-button type="primary" size="large">发表评论</mt-button><br>
+    <hr />
+    <textarea placeholder="请输入要BB的内容:" maxlength="120" v-model="msg"></textarea>
+    <mt-button type="primary" size="large" @click="postComments">发表评论</mt-button>
+    <br />
 
     <!-- 评论列表 -->
     <ul class="comment-list">
-      <li class="item">
-        <p class="item-title" style="background-color:#ccc">花开花落&nbsp;&nbsp;第1楼&nbsp;&nbsp;发表于2019-05-25 14:22:33</p>
-        <p class="item-info">厉害了</p>
+      <li class="item" v-for="comment in commentList" :key="comment.time">
+        <p
+          class="item-title"
+          style="background-color:#ccc"
+        >{{comment.author}}&nbsp;&nbsp;第1楼&nbsp;&nbsp;发表于{{comment.time | dateFormat}}</p>
+        <p class="item-info">{{comment.content}}</p>
       </li>
-      <li class="item">
+      <!-- <li class="item">
         <p class="item-title" style="background-color:#ccc">匿名用户&nbsp;&nbsp;第2楼&nbsp;&nbsp;发表于2019-05-25 14:22:33</p>
         <p class="item-info">楼上是sb</p>
       </li>
@@ -22,7 +26,7 @@
       <li class="item">
         <p class="item-title" style="background-color:#ccc">兰草&nbsp;&nbsp;第4楼&nbsp;&nbsp;发表于2019-05-25 14:22:33</p>
         <p class="item-info">划重点</p>
-      </li>
+      </li>-->
     </ul>
 
     <mt-button type="primary" size="large" plain>加载更多</mt-button>
@@ -30,9 +34,43 @@
 </template>
 
 <script>
+import { Toast } from "mint-ui";
+
 export default {
-  
-}
+  data() {
+    return {
+      msg: "", //用于发表评论
+      commentList: [
+        { author: "花开花落", time: "2019-05-25 14:22:6", content: "厉害了" },
+        { author: "闲庭信步", time: "2019-05-25 14:21:54", content: "划重点" },
+        {
+          author: "匿名用户",
+          time: "2019-05-25 14:21:38",
+          content: "可以可以"
+        },
+        { author: "兰草", time: "2019-05-25 14:20:14", content: "4楼我的" }
+      ]
+    };
+  },
+  methods: {
+    postComments() {
+      // 判断评论是否为空
+      if (this.msg.trim().length === 0) {
+        Toast("您还没有想说的话吗。。。");
+        return;
+      }
+
+      var mesObj = {
+        author: "匿名用户",
+        time: Date.now(),
+        content: this.msg.trim()
+      };
+
+      this.commentList.unshift(mesObj);
+      this.msg = "";
+    }
+  }
+};
 </script>
 
 <style scoped>
@@ -53,7 +91,7 @@ export default {
   list-style: none;
 }
 .comment-list .item .item-title {
-  padding-left: 5px; 
+  padding-left: 5px;
   font-size: 13px;
   color: #555;
   line-height: 30px;
