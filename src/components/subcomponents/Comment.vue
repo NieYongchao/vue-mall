@@ -15,18 +15,6 @@
         >{{comment.author}}&nbsp;&nbsp;第1楼&nbsp;&nbsp;发表于{{comment.time | dateFormat}}</p>
         <p class="item-info">{{comment.content}}</p>
       </li>
-      <!-- <li class="item">
-        <p class="item-title" style="background-color:#ccc">匿名用户&nbsp;&nbsp;第2楼&nbsp;&nbsp;发表于2019-05-25 14:22:33</p>
-        <p class="item-info">楼上是sb</p>
-      </li>
-      <li class="item">
-        <p class="item-title" style="background-color:#ccc">闲庭信步&nbsp;&nbsp;第3楼&nbsp;&nbsp;发表于2019-05-25 14:22:33</p>
-        <p class="item-info">可以可以</p>
-      </li>
-      <li class="item">
-        <p class="item-title" style="background-color:#ccc">兰草&nbsp;&nbsp;第4楼&nbsp;&nbsp;发表于2019-05-25 14:22:33</p>
-        <p class="item-info">划重点</p>
-      </li>-->
     </ul>
 
     <mt-button type="primary" size="large" plain>加载更多</mt-button>

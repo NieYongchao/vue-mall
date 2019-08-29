@@ -4,6 +4,8 @@
 
     <mt-header fixed title="天狗商城"></mt-header>
 
+    <i class="icon iconfont icon-fanhui back" @click="goBack"></i>
+    <!-- <button class="back" @click="goBack">返回</button> -->
     <!-- 中部内容区 -->
     <transition>
       <router-view></router-view>
@@ -35,15 +37,37 @@
 
 
 <script>
+export default {
+  methods: {
+    goBack () {
+      if(this.$route.path=="/home"){
+        return
+      }
+      // console.log(this.$route.path)
+      this.$router.back(-1);
+    }
+  }
+}
 </script>
 
 
 <style scoped>
 .app-container {
+  position: relative;
   padding-top: 40px;
   overflow-x: hidden;
 }
-
+/* 返回按钮 */
+.back {
+  position: fixed;
+  top: 10px;
+  left: 18px;
+  border: 0;
+  color: #fff;
+  background-color: #26A2FF;
+  cursor: pointer;
+  z-index: 5;
+}
 .v-enter {
   opacity: 0;
   transform: translateX(100%);

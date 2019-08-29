@@ -15,6 +15,7 @@ Vue.http.options.emulateJSON = true
 // mui 组件
 import './lib/mui/css/mui.min.css'
 import './lib/mui/css/icons-extra.css'
+import './lib/mui/js/mui.min.js'
 
 
 // 按需导入 mint-ui 组件
@@ -31,6 +32,12 @@ import './lib/mui/css/icons-extra.css'
 import MintUI from 'mint-ui'
 Vue.use(MintUI)
 import 'mint-ui/lib/style.css'
+
+
+
+// 安装图片预览插件
+import VuePreview from 'vue-preview'
+Vue.use(VuePreview)
 
 // 导入格式化时间的插件
 import moment from 'moment'

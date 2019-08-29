@@ -1,11 +1,7 @@
 <template>
   <div>
     <!-- 轮播图区域 -->
-    <mt-swipe :auto="3000">
-      <mt-swipe-item v-for="item in swipeData" :key="item.id">
-        <img :src="item.url" alt />
-      </mt-swipe-item>
-    </mt-swipe>
+    <slides :swipeData="swipeData"></slides>
 
     <!-- 商品分区 -->
     <ul class="mui-table-view mui-grid-view mui-grid-9">
@@ -22,10 +18,10 @@
         </router-link>
       </li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
-        <a href="#">
+        <router-link to="/home/goodslist">
           <img src="../../images/menu3.png" alt="">
           <div class="mui-media-body">商品购买</div>
-        </a>
+        </router-link>
       </li>
       <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-4">
         <a href="#">
@@ -51,6 +47,7 @@
 
 <script>
 import { Toast } from "mint-ui";
+import slides from "../subcomponents/slides.vue"
 
 export default {
   data() {
@@ -96,28 +93,15 @@ export default {
     //     }
     //   })
     // }
+  },
+  components: {
+    slides: slides
   }
 };
 </script>
 
 <style scoped>
-/* 轮播图 */
-.mint-swipe {
-  height: 200px;
-}
-.mint-swipe-item img {
-  width: 100%;
-  height: 100%;
-}
-.mint-swipe-item:nth-child(1) {
-  background-color: aquamarine;
-}
-.mint-swipe-item:nth-child(2) {
-  background-color: greenyellow;
-}
-.mint-swipe-item:nth-child(3) {
-  background-color: orangered;
-}
+
 /* 九宫格商品分区 */
 .mui-grid-view.mui-grid-9 {
   background-color: #fff;
