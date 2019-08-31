@@ -6,7 +6,7 @@
       @enter="enter"
       @after-enter="afterEnter" 
     >
-      <div class="ball" v-show="ballFlag"></div>
+      <div class="ball" v-show="ballFlag" ref="ball"></div>
     </transition>
 
     <!-- 轮播图区 -->
@@ -29,11 +29,8 @@
           </p>
           <div class="amount-box">
             <p class="amount">购买数量</p>
-            <div class="mui-numbox" data-numbox-min="0" data-numbox-max="9">
-              <button class="mui-btn mui-btn-numbox-minus" type="button">-</button>
-              <input ref="test" id="test" class="mui-input-numbox" type="number" value="0" />
-              <button class="mui-btn mui-btn-numbox-plus" type="button">+</button>
-            </div>
+            <!-- 在GoodsInfo.vue中需要获取到 GoodsInfo_numbox.vue中的数量值 -->
+            <numbox @getCount="getCharge" :max="goodsInfo[this.id].stock"></numbox>
           </div>
           <p class="buy-btn">
             <mt-button type="default" size="normal" class="btn" @click="addToCart">加入购物车</mt-button>
@@ -63,12 +60,16 @@
 <script>
 // 轮播图组件
 import slides from "../subcomponents/slides.vue";
-import { Toast } from "mint-ui"
+//数字选择框组件
+import numbox from "../subcomponents/GoodsInfo_numbox.vue"; 
+
+import { Toast } from "mint-ui";
  
 export default {
   data() {
     return {
       ballFlag: false,
+      selectedCount: 1,
       id: this.$route.params.id,
       swipeData: [
         [
@@ -96,7 +97,7 @@ export default {
           price: "3198-3498",
           new_price: "2699-2999",
           goods_num: "1a456da61313a2sd1a3sd",
-          stock: "2564",
+          stock: "64",
           for_sale: "2019-4-5"
         },
         { id: 1,
@@ -104,7 +105,7 @@ export default {
           price: "5999-6599",
           new_price: "6999-7999",
           goods_num: "1a456da61313a2sd1a3sd",
-          stock: "5879",
+          stock: "879",
           for_sale: "2019-3-20"
         },
         { id: 2,
@@ -112,7 +113,7 @@ export default {
           price: "2698.00-3298.00",
           new_price: "2998.00-3298.00",
           goods_num: "1a456da61313a2sd1a3sd",
-          stock: "2564",
+          stock: "24",
           for_sale: "2019-2-5"
         },
         { id: 3,
@@ -120,7 +121,7 @@ export default {
           price: "4998.00",
           new_price: "5998.00",
           goods_num: "1a456da61313a2sd1a3sd",
-          stock: "2564",
+          stock: "25",
           for_sale: "2019-3-15"
         }
       ]
@@ -138,10 +139,7 @@ export default {
     },
     //购物车小球动画
     addToCart () {
-      if(this.$refs.test.value==0){
-        Toast("请选择数量");
-        return
-      }
+      
       this.ballFlag = !this.ballFlag;
       Toast('成功加入购物车ヾ(≧▽≦*)o');
     },
@@ -150,16 +148,35 @@ export default {
     },
     enter (el, done) {
       el.offsetWidth;
-      el.style.transform = "translate(120px, 218px)";
-      el.style.transition = "all 0.8s cubic-bezier(.01,-0.7,.95,.36)"; 
+
+      // 小球动画优化
+      // 把数据写成动态的，否则在有滚动条或者不同分辨率下，动画有显示bug
+      // 获取小球默认相对于界面位置
+      const ballPosition = this.$refs.ball.getBoundingClientRect();
+      // 获取购物车小球应到达的位置  由于购物车是存在于APP.vue中的，所以这里用原生dom获取
+      const badgePosition = document.getElementById("badge").getBoundingClientRect();
+
+      xRelative = badgePosition.left - ballPosition.left;
+      yRelative = badgePosition.top - ballPosition.top;
+
+
+      el.style.transform = `translate(${xRelative}px, ${yRelative}px)`;
+      el.style.transition = "all 0.5s cubic-bezier(.01,-0.7,.95,.36)"; 
       done();
     },
     afterEnter (el) { 
       this.ballFlag = !this.ballFlag;
+    },
+
+    // 获取子组件中的数量值
+    getCharge (count) {
+      this.selectedCount = count;
+      console.log(this.selectedCount)
     }
   },
   components: {
-    slides: slides
+    slides: slides,
+    numbox: numbox
   }
 };
 </script>
