@@ -94,24 +94,24 @@ export default {
       goodsInfo: [
         { id: 0,
           title: "【限量抢券立减100】Meizu/魅族16s旗舰新品4G智能全网通4800万OIS光学防抖骁龙855全面屏手机",
-          price: "3198-3498",
-          new_price: "2699-2999",
+          price: "3198",
+          new_price: "2699",
           goods_num: "1a456da61313a2sd1a3sd",
           stock: "64",
           for_sale: "2019-4-5"
         },
         { id: 1,
           title: "【12期免息 换新补贴至高1000元】Samsung/三星Galaxy S10 SM-G9730骁龙855 4G新品游戏全面屏智能手机",
-          price: "5999-6599",
-          new_price: "6999-7999",
+          price: "5999",
+          new_price: "6999",
           goods_num: "1a456da61313a2sd1a3sd",
           stock: "879",
           for_sale: "2019-3-20"
         },
         { id: 2,
           title: "【12期免息半年延保】vivo X27 限量版新品上市4800万广角三摄升降式摄像头全面屏指纹手机官方正品vivox27",
-          price: "2698.00-3298.00",
-          new_price: "2998.00-3298.00",
+          price: "2698.00",
+          new_price: "2998.00",
           goods_num: "1a456da61313a2sd1a3sd",
           stock: "24",
           for_sale: "2019-2-5"
@@ -139,9 +139,20 @@ export default {
     },
     //购物车小球动画
     addToCart () {
-      
+    
       this.ballFlag = !this.ballFlag;
       Toast('成功加入购物车ヾ(≧▽≦*)o');
+      // 把购买数据传入  state中的cart
+      var goodsInfo = {
+        id: this.id,
+        title: this.goodsInfo[this.id].title,
+        count: this.selectedCount,
+        price: this.goodsInfo[this.id].new_price,
+        selected: true
+      };
+      
+      this.$store.commit("addToCart", goodsInfo);
+
     },
     beforeEnter (el) {
       el.style.transform = "translate(0, 0)";
@@ -171,7 +182,7 @@ export default {
     // 获取子组件中的数量值
     getCharge (count) {
       this.selectedCount = count;
-      console.log(this.selectedCount)
+      // console.log(this.selectedCount)
     }
   },
   components: {

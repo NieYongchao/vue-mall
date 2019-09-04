@@ -188,11 +188,11 @@ export default {
   justify-content: space-between;
 }
 .goods-item .price {
-  font-size: 14px;
+  font-size: 13px;
   color: red;
 }
 .goods-item .sales-volume {
-  font-size: 13px;
+  font-size: 12px;
   color: rgb(161, 160, 160);
 }
 </style>
