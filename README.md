@@ -27,3 +27,6 @@
   +可以使用npm安装 babel-plugin-transform-remove-strict-mode 取消严格模式
   +并在.babelrc中做配置"plugins": ["transform-strict-mode"]
   +测试ok之后，原有的tabbar组件出现无法切换的问题，可以把类名class="mui-tab-item"改变一下
+
+##购物车列表制作
+1.使用vuex存储数据
